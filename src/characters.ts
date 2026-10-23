@@ -1,0 +1,11 @@
+
+export const names = `Albedo|Alhaitham|Aloy|Amber|Arataki Itto|Arlecchino|Baizhu|Barbara|Beidou|Bennett|Candace|Charlotte|Chasca|Chevreuse|Chiori|Chongyun|Citlali|Clorinde|Collei|Columbina|Cyno|Dahlia|Dehya|Diluc|Diona|Dori|Durin|Emilie|Escoffier|Eula|Faruzan|Fischl|Flins|Freminet|Furina|Gaming|Ganyu|Gorou|Hu Tao|Iansan|Ifa|Ineffa|Jean|Kachina|Kaedehara Kazuha|Kaeya|Kamisato Ayaka|Kamisato Ayato|Kaveh|Keqing|Kinich|Kirara|Klee|Kujou Sara|Kuki Shinobu|Lan Yan|Lauma|Layla|Linnea|Lisa|Lohen|Lumine|Lynette|Lyney|Mavuika|Mika|Mona|Mualani|Nahida|Navia|Nefer|Neuvillette|Nicole|Nilou|Ningguang|Noelle|Odette|Ororon|Prune|Qiqi|Raiden Shogun|Razor|Rosaria|Sandrone|Sangonomiya Kokomi|Sayu|Sethos|Shenhe|Shikanoin Heizou|Sigewinne|Skirk|Sucrose|Tartaglia|Thoma|Tighnari|Varesa|Varka|Venti|Vesna|Vodyanitsa|Wanderer|Wriothesley|Xiangling|Xianyun|Xiao|Xilonen|Xingqiu|Xinyan|Yae Miko|Yanfei|Yaoyao|Yelan|Yoimiya|Yumemizuki Mizuki|Yun Jin|Zhongli|Zibai|Anemo Traveler|Geo Traveler|Electro Traveler|Dendro Traveler|Hydro Traveler|Pyro Traveler|Cryo Traveler`.split('|').sort();
+
+export function imageFilename(name: string): string {
+  if (name.endsWith(" Traveler")) {
+    const element = name.split(" ")[0];
+    return `${element}Traveler_Icon.png`;
+  }
+
+  return `${name.replace(/ /g, "_")}_Icon.webp`;
+}
