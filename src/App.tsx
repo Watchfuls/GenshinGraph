@@ -38,14 +38,36 @@ export default function App(){
    const r=graph.current?.getBoundingClientRect();
    if(r&&e.clientX>=r.left&&e.clientX<=r.right&&e.clientY>=r.top&&e.clientY<=r.bottom)place(drag.current.name,e.clientX,e.clientY);
  };
- const onEnd=(e:React.PointerEvent)=>{
-   if(!drag.current)return;
-   const name=drag.current.name;
-   const r=graph.current?.getBoundingClientRect();
-   if(r&&e.clientX>=r.left&&e.clientX<=r.right&&e.clientY>=r.top&&e.clientY<=r.bottom)place(name,e.clientX,e.clientY);
-   else if((e.target as HTMLElement).closest('.tray'))remove(name);
-   drag.current=null;setActive(null);
- };
+const onEnd = (e: React.PointerEvent) => {
+  if (!drag.current) return;
+
+  const name = drag.current.name;
+  const graphRect = graph.current?.getBoundingClientRect();
+
+  // Check whether the pointer is inside the graph
+  if (
+    graphRect &&
+    e.clientX >= graphRect.left &&
+    e.clientX <= graphRect.right &&
+    e.clientY >= graphRect.top &&
+    e.clientY <= graphRect.bottom
+  ) {
+    place(name, e.clientX, e.clientY);
+  } else {
+    // Check what's actually underneath the pointer
+    const elementUnderPointer = document.elementFromPoint(
+      e.clientX,
+      e.clientY
+    );
+
+    if (elementUnderPointer?.closest('.tray')) {
+      remove(name);
+    }
+  }
+
+  drag.current = null;
+  setActive(null);
+};
  const onCancel=()=>{drag.current=null;setActive(null);};
  const download=async()=>{if(!exportRef.current)return;try{
    const url=await toPng(exportRef.current,{pixelRatio:2,backgroundColor:'#151d2c'});
