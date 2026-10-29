@@ -9,16 +9,18 @@ npm run dev
 ```
 
 ## Character portraits
-Place images in `public/characters/` named by lowercase kebab-case character name:
-`furina.png`, `raiden-shogun.png`, `hu-tao.png`, etc.
-Missing portraits display initials. The included roster is a starter list; update
-`src/characters.ts` with newer characters and exact desired naming.
+Character portraits come from the sibling `../genshin-shared/icons/characters/`
+folder. `npm run dev` and `npm run build` copy those shared assets into the
+ignored `public/icons/` build input. Set `GENSHIN_SHARED_DIR` to override the
+shared repository path. Missing portraits display initials.
 
 ## Deploy for free on GitHub Pages
 1. Create a public GitHub repository and push this project.
 2. In Settings → Pages, set Source to **GitHub Actions**.
-3. Add the workflow file from `.github/workflows/deploy.yml`.
-4. Push to `main`. The workflow builds and deploys the site.
+3. Ensure the public `Watchfuls/genshin-shared` repository contains the shared
+   `icons/` directory.
+4. Push to `main`. The workflow checks out the shared icons, builds, and deploys
+   the site.
 Vite's relative `base: './'` supports project pages.
 
 ## Storage

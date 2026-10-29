@@ -10,7 +10,7 @@ function initial():Saved {try {const v=JSON.parse(localStorage.getItem(key)||'nu
 function Portrait({name}:{name:string}) {
   const [failed,setFailed]=useState(false);
   useEffect(()=>setFailed(false),[name]);
-  return <span className="portrait">{!failed?<img draggable={false} src={`${import.meta.env.BASE_URL}characters/${imageFilename(name)}`} alt={name} onError={()=>setFailed(true)}/>:<span>{name.split(' ').map(w=>w[0]).join('').slice(0,2)}</span>}</span>;
+  return <span className="portrait">{!failed?<img draggable={false} src={`${import.meta.env.BASE_URL}icons/characters/${imageFilename(name)}`} alt={name} onError={()=>setFailed(true)}/>:<span>{name.split(' ').map(w=>w[0]).join('').slice(0,2)}</span>}</span>;
 }
 export default function App(){
  const [data,setData]=useState<Saved>(initial);

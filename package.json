@@ -4,8 +4,12 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
+    "predev": "node scripts/prepare-shared-assets.mjs",
     "dev": "vite",
+    "postdev": "node scripts/prepare-shared-assets.mjs clean",
+    "prebuild": "node scripts/prepare-shared-assets.mjs",
     "build": "tsc -b && vite build",
+    "postbuild": "node scripts/prepare-shared-assets.mjs clean",
     "preview": "vite preview"
   },
   "dependencies": {
