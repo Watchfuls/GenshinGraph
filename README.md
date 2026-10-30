@@ -28,6 +28,14 @@ Graph positions and labels automatically save in browser `localStorage` under
 `genshin-graph-v1`. Clearing browser site data erases progress.
 There is no backend and no public sharing of placements.
 
+## Graph customization
+Use the sidebar to edit axis labels and portrait size. Character names appear
+on hover automatically. Expand **Graph customization** to set each axis's
+minimum, maximum, and division count, and to adjust axis numbers, grid
+visibility and opacity, center lines, graph/grid colors, and portrait shape
+and border. Appearance settings are saved with the graph and included in PNG
+exports.
+
 ## Character tray
 The unplaced-character tray supports search and multi-select filters for weapon,
 element, and rarity. These filters only affect which characters are shown in

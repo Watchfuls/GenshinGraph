@@ -95,6 +95,7 @@ input {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 260px;
   gap: 20px;
+  align-items: start;
 }
 
 .chart-wrap,
@@ -179,11 +180,54 @@ aside,
   min-height: 230px;
   border: 2px solid #7483a1;
   background-image:
-    linear-gradient(to right, #ffffff15 1px, transparent 1px),
-    linear-gradient(to bottom, #ffffff15 1px, transparent 1px);
-  background-size: 10% 10%;
-  background-color: #182439;
+    linear-gradient(to right, color-mix(in srgb, var(--grid-color) var(--grid-opacity), transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--grid-color) var(--grid-opacity), transparent) 1px, transparent 1px);
+  background-size: var(--grid-size-x) var(--grid-size-y);
+  background-color: var(--graph-background);
   touch-action: none;
+}
+
+.graph.no-grid {
+  background-image: none;
+}
+
+.axis-tick {
+  position: absolute;
+  z-index: 1;
+  padding: 1px 3px;
+  border-radius: 3px;
+  background: #101827b8;
+  color: #e2e8f0;
+  font-size: 10px;
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+  pointer-events: none;
+}
+
+.axis-tick-x {
+  bottom: 3px;
+  transform: translateX(-50%);
+}
+
+.axis-tick-x.start {
+  transform: none;
+}
+
+.axis-tick-x.end {
+  transform: translateX(-100%);
+}
+
+.axis-tick-y {
+  left: 3px;
+  transform: translateY(-50%);
+}
+
+.axis-tick-y.start {
+  transform: none;
+}
+
+.axis-tick-y.end {
+  transform: translateY(-100%);
 }
 
 .midline {
@@ -221,6 +265,31 @@ aside,
   cursor: grabbing;
 }
 
+.point-name {
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 50%;
+  z-index: 1;
+  visibility: hidden;
+  opacity: 0;
+  padding: 4px 7px;
+  border: 1px solid #455470;
+  border-radius: 5px;
+  background: #0c1220f2;
+  color: #fff;
+  font-size: 12px;
+  line-height: 1.2;
+  white-space: nowrap;
+  pointer-events: none;
+  transform: translateX(-50%);
+}
+
+.point:hover .point-name,
+.point.active .point-name {
+  visibility: visible;
+  opacity: 1;
+}
+
 
 /* =========================================
    Character Portraits
@@ -230,7 +299,7 @@ aside,
   display: flex;
   width: 100%;
   height: 100%;
-  border: 2px solid #b6c8e4;
+  border: 2px solid var(--portrait-border, #b6c8e4);
   border-radius: 10px;
   overflow: hidden;
   align-items: center;
@@ -253,6 +322,14 @@ aside,
   border-radius: 50%;
 }
 
+.point.portrait-rounded .portrait {
+  border-radius: 10px;
+}
+
+.point.portrait-square .portrait {
+  border-radius: 0;
+}
+
 
 /* =========================================
    Sidebar Settings
@@ -260,6 +337,16 @@ aside,
 
 aside {
   padding: 18px;
+  position: sticky;
+  top: 16px;
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+}
+
+aside::-webkit-scrollbar {
+  display: none;
 }
 
 aside label {
@@ -272,6 +359,127 @@ aside label {
 aside input {
   display: block;
   margin-top: 5px;
+}
+
+aside select {
+  display: block;
+  width: 100%;
+  margin-top: 5px;
+  padding: 8px;
+  border: 1px solid #3c4b67;
+  border-radius: 7px;
+  background: #111c30;
+  color: #fff;
+  font: inherit;
+}
+
+aside input[type="checkbox"] {
+  width: auto;
+  margin: 0;
+  accent-color: #9cc2ff;
+}
+
+aside label.checkbox-setting {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+aside input.color-input {
+  height: 38px;
+  padding: 3px;
+}
+
+.appearance-settings {
+  margin-top: 16px;
+  padding-top: 13px;
+  border-top: 1px solid #2e3d59;
+}
+
+.appearance-settings summary {
+  margin-bottom: 14px;
+  color: #e2e8f0;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.appearance-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 4px;
+  margin-bottom: 14px;
+  padding: 4px;
+  border: 1px solid #2e3d59;
+  border-radius: 9px;
+  background: #101827;
+}
+
+.appearance-tabs button {
+  min-width: 0;
+  padding: 7px 4px;
+  border-color: transparent;
+  background: transparent;
+  color: #bac7dc;
+  font-size: 11px;
+}
+
+.appearance-tabs button:hover {
+  background: #253553;
+}
+
+.appearance-tabs button.selected {
+  border-color: #455470;
+  background: #344968;
+  color: #fff;
+}
+
+.appearance-tabs button:focus-visible {
+  outline: 2px solid #9cc2ff;
+  outline-offset: 1px;
+}
+
+.appearance-panel {
+  min-height: 120px;
+}
+
+.axis-settings {
+  min-width: 0;
+  margin: 0 0 12px;
+  padding: 8px;
+  border: 1px solid #34435f;
+  border-radius: 7px;
+}
+
+.axis-settings legend {
+  padding: 0 4px;
+  color: #d0daee;
+  font-size: 12px;
+}
+
+.number-fields {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.number-fields label {
+  min-width: 0;
+  margin: 0;
+  font-size: 11px;
+}
+
+.number-fields input,
+aside input[type="number"] {
+  padding: 7px 5px;
+  font-size: 13px;
+}
+
+.appearance-settings > button {
+  margin-top: 2px;
+}
+
+.appearance-settings button {
+  width: 100%;
 }
 
 
@@ -480,6 +688,12 @@ footer {
 @media (max-width: 850px) {
   .layout {
     grid-template-columns: 1fr;
+  }
+
+  aside {
+    position: static;
+    max-height: none;
+    overflow: visible;
   }
 
   header {
