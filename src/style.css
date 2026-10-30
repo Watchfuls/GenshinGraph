@@ -295,13 +295,106 @@ aside input {
   margin: 0;
 }
 
-.tray-header input {
+.tray-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tray-header-actions input {
   max-width: 290px;
+}
+
+.reset-order {
+  white-space: nowrap;
+}
+
+.reset-order:disabled {
+  cursor: default;
+  opacity: 0.55;
+}
+
+.tray-filters {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px 18px;
+  margin-top: 14px;
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.filter-label {
+  color: #aab5ca;
+  font-size: 12px;
+}
+
+.filter-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.filter-chip {
+  min-height: 32px;
+  padding: 5px 9px;
+  border-color: #3c4b67;
+  background: #111c30;
+  color: #cbd6e9;
+  font-size: 12px;
+}
+
+.filter-chip.selected {
+  border-color: #8ca9d4;
+  background: #344968;
+  color: #fff;
+}
+
+.element-filter {
+  display: flex;
+  width: 32px;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+}
+
+.element-filter img,
+.weapon-filter img {
+  width: 20px;
+  height: 20px;
+}
+
+.weapon-filter {
+  display: flex;
+  width: 32px;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+}
+
+.weapon-filter img {
+  object-fit: contain;
+}
+
+.clear-filters {
+  min-height: 32px;
+  padding: 5px 9px;
+  font-size: 12px;
 }
 
 .tray small {
   font-weight: 400;
   color: #aab5ca;
+}
+
+.empty-tray {
+  margin: 20px 0 0;
+  text-align: center;
 }
 
 .characters {
@@ -312,11 +405,21 @@ aside input {
 }
 
 .tile {
+  position: relative;
   min-width: 0;
   text-align: center;
   cursor: grab;
   touch-action: none;
   user-select: none;
+}
+
+.tile:active {
+  cursor: grabbing;
+}
+
+.tile:focus-visible {
+  outline: 2px solid #9cc2ff;
+  outline-offset: 3px;
 }
 
 .tile .portrait {
@@ -336,6 +439,27 @@ aside input {
 
 .tile.active {
   opacity: 0.5;
+}
+
+.tile.reorder-before::before,
+.tile.reorder-after::after {
+  position: absolute;
+  top: 0;
+  bottom: 20px;
+  width: 4px;
+  border-radius: 4px;
+  background: #9cc2ff;
+  box-shadow: 0 0 10px 2px #78aaffb0;
+  content: '';
+  pointer-events: none;
+}
+
+.tile.reorder-before::before {
+  left: -8px;
+}
+
+.tile.reorder-after::after {
+  right: -8px;
 }
 
 
@@ -361,6 +485,20 @@ footer {
   header {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .tray-header {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .tray-header-actions {
+    align-items: stretch;
+  }
+
+  .tray-header-actions input {
+    max-width: none;
   }
 
   .graph {

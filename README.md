@@ -27,3 +27,13 @@ Vite's relative `base: './'` supports project pages.
 Graph positions and labels automatically save in browser `localStorage` under
 `genshin-graph-v1`. Clearing browser site data erases progress.
 There is no backend and no public sharing of placements.
+
+## Character tray
+The unplaced-character tray supports search and multi-select filters for weapon,
+element, and rarity. These filters only affect which characters are shown in
+the tray; characters already placed on the graph are unchanged. Drag a
+character tile to reorder it or drop it onto the graph. Use the arrow keys while
+a tile is focused to reorder it with the keyboard. Use **Reset order** to restore
+the default order. The custom order is saved with the graph in local storage.
+When dragging a placed character back to the tray, a marker previews where it
+will be inserted in the order.
