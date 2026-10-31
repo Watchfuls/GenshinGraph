@@ -193,7 +193,7 @@ const onEnd = (e: React.PointerEvent) => {
  const hasFilters=query.length>0||weaponFilters.length>0||elementFilters.length>0||rarityFilters.length>0;
  const hasCustomOrder=data.order.some((name,index)=>name!==defaultOrder[index]);
  return <main onPointerMove={onMove} onPointerUp={onEnd} onPointerCancel={onCancel}>
-   <header><div><h1>Genshin Character Graph</h1><p>Drag characters from the tray onto the graph. Your changes save automatically in this browser.</p></div><div className="actions"><button onClick={download}>Export PNG</button><button className="danger" onClick={()=>{if(confirm('Clear all placed characters?'))setData(d=>({...d,positions:{}}));}}>Clear graph</button></div></header>
+   <header><div><h1>Genshin Character Graph</h1><p>Drag characters from the tray onto the graph. Your changes save automatically in this browser.</p></div><div className="header-right"><div className="related-sites" role="navigation" aria-label="More Genshin tools"><a href="https://watchfuls.github.io/imaginarium-theater-planner/">Theater Planner</a><span aria-hidden="true">·</span><a href="https://watchfuls.github.io/genshinpuzzle/">Dummy Guesser</a></div><div className="actions"><button onClick={download}>Export PNG</button><button className="danger" onClick={()=>{if(confirm('Clear all placed characters?'))setData(d=>({...d,positions:{}}));}}>Clear graph</button></div></div></header>
    <section className="layout">
     <div className="chart-wrap" ref={exportRef}>
      <div className="top-label">{data.labels.yTop}</div>
