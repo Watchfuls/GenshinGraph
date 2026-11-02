@@ -735,3 +735,9 @@ footer {
     height: 62px;
   }
 }
+
+.tray-header-actions{flex-wrap:wrap}
+.sort-control{display:flex;align-items:center;gap:8px;color:#bac7dc;font-size:12px}
+.sort-control select{font:inherit;color:#fff;background:#111c30;border:1px solid #3c4b67;border-radius:7px;padding:9px;max-width:100%}
+.sort-hint{font-size:12px;margin:10px 0 0}
+@media(max-width:500px){.sort-control{width:100%}.sort-control select{flex:1}.tray-header-actions input{flex:1}}

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import { toPng } from 'html-to-image';
-import { characters, elements, imageFilename, weapons, type Element, type Weapon } from './characters';
+import { characters, elements, imageFilename, weapons, sortOptions, sortedCharacterNames, type CharacterSort, type Element, type Weapon } from './characters';
 type Pos = { x: number; y: number };
 type Labels = { xLeft:string;xRight:string;yBottom:string;yTop:string;xTitle:string;yTitle:string };
 type GraphSettings = {
@@ -26,6 +26,7 @@ const defaults:Labels={xLeft:'Weak',xRight:'Strong',yBottom:'Difficult',yTop:'Ea
 const defaultSettings:GraphSettings={portraitSize:52,portraitShape:'circle',showAxisNumbers:false,xMin:0,xMax:100,yMin:0,yMax:100,xDivisions:10,yDivisions:10,showGrid:true,gridOpacity:20,showCenterLines:true,gridColor:'#ffffff',backgroundColor:'#182439',portraitBorderColor:'#b6c8e4'};
 const key='genshin-graph-v1';
 const defaultOrder=characters.map(character=>character.name);
+const presetOrders=Object.fromEntries(sortOptions.map(option=>[option.value,sortedCharacterNames(option.value)])) as Record<CharacterSort,string[]>;
 const boundedNumber=(value:unknown,fallback:number,min:number,max:number)=>typeof value==='number'&&Number.isFinite(value)?Math.max(min,Math.min(max,value)):fallback;
 const formatAxisNumber=(value:number)=>new Intl.NumberFormat('en-US',{
   notation:Math.abs(value)>=1_000_000?'compact':'standard',
@@ -192,6 +193,7 @@ const onEnd = (e: React.PointerEvent) => {
  ).sort((a,b)=>(orderIndex.get(a.name)??0)-(orderIndex.get(b.name)??0));
  const hasFilters=query.length>0||weaponFilters.length>0||elementFilters.length>0||rarityFilters.length>0;
  const hasCustomOrder=data.order.some((name,index)=>name!==defaultOrder[index]);
+ const selectedSort=sortOptions.find(option=>presetOrders[option.value].every((name,index)=>data.order[index]===name))?.value??'custom';
  return <main onPointerMove={onMove} onPointerUp={onEnd} onPointerCancel={onCancel}>
    <header><div><h1>Genshin Character Graph</h1><p>Drag characters from the tray onto the graph. Your changes save automatically in this browser.</p></div><div className="header-right"><div className="related-sites" role="navigation" aria-label="More Genshin tools"><a href="https://watchfuls.github.io/imaginarium-theater-planner/">Theater Planner</a><span aria-hidden="true">·</span><a href="https://watchfuls.github.io/genshinpuzzle/">Dummy Guesser</a></div><div className="actions"><button onClick={download}>Export PNG</button><button className="danger" onClick={()=>{if(confirm('Clear all placed characters?'))setData(d=>({...d,positions:{}}));}}>Clear graph</button></div></div></header>
    <section className="layout">
@@ -242,7 +244,8 @@ const onEnd = (e: React.PointerEvent) => {
      </details>
     </aside>
    </section>
-   <section className="tray"><div className="tray-header"><h2>Characters <small>({remaining.length} unplaced · drag tiles to reorder)</small></h2><div className="tray-header-actions"><input aria-label="Search characters" placeholder="Search characters..." value={query} onChange={e=>setQuery(e.target.value)}/><button type="button" className="reset-order" disabled={!hasCustomOrder} onClick={()=>setData(d=>({...d,order:defaultOrder}))}>Reset order</button></div></div>
+   <section className="tray"><div className="tray-header"><h2>Characters <small>({remaining.length} unplaced · drag tiles to reorder)</small></h2><div className="tray-header-actions"><label className="sort-control">Sort<select aria-label="Sort characters" value={selectedSort} onChange={e=>{const value=e.target.value;if(value!=='custom')setData(d=>({...d,order:presetOrders[value as CharacterSort]}));}}><option value="custom" disabled>Custom order</option>{sortOptions.map(option=><option key={option.value} value={option.value}>{option.label}</option>)}</select></label><input aria-label="Search characters" placeholder="Search characters..." value={query} onChange={e=>setQuery(e.target.value)}/><button type="button" className="reset-order" disabled={!hasCustomOrder} onClick={()=>setData(d=>({...d,order:defaultOrder}))}>Reset order</button></div></div>
+     <p className="sort-hint">In-game order uses rarity, element, then newest release at equal levels. Dragging tiles saves a custom order.</p>
      <div className="tray-filters">
        <div className="filter-group" role="group" aria-label="Filter by weapon">
          <span className="filter-label">Weapon</span>
