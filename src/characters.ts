@@ -1,6 +1,6 @@
 import releaseDates from './character-release-dates.json';
 
-export const names = `Aino|Albedo|Alhaitham|Aloy|Alyosha|Amber|Anemo Traveler|Arataki Itto|Arlecchino|Baizhu|Barbara|Beidou|Bennett|Candace|Charlotte|Chasca|Chevreuse|Chiori|Chongyun|Citlali|Clorinde|Collei|Columbina|Cryo Traveler|Cyno|Dahlia|Dehya|Dendro Traveler|Diluc|Diona|Dori|Durin|Electro Traveler|Emilie|Escoffier|Eula|Faruzan|Fischl|Flins|Freminet|Furina|Gaming|Ganyu|Geo Traveler|Gorou|Hu Tao|Hydro Traveler|Iansan|Ifa|Illuga|Ineffa|Jahoda|Jean|Kachina|Kaedehara Kazuha|Kaeya|Kamisato Ayaka|Kamisato Ayato|Kaveh|Keqing|Kinich|Kirara|Klee|Kujou Sara|Kuki Shinobu|Lan Yan|Lauma|Layla|Linnea|Lisa|Lohen|Lumine|Lynette|Lyney|Mavuika|Mika|Mona|Mualani|Nahida|Navia|Nefer|Neuvillette|Nicole|Nilou|Ningguang|Noelle|Odette|Ororon|Prune|Pyro Traveler|Qiqi|Raiden Shogun|Razor|Rosaria|Sandrone|Sangonomiya Kokomi|Sayu|Sethos|Shenhe|Shikanoin Heizou|Sigewinne|Skirk|Sucrose|Tartaglia|Thoma|Tighnari|Varesa|Varka|Venti|Vesna|Vodyanitsa|Wanderer|Wriothesley|Xiangling|Xianyun|Xiao|Xilonen|Xingqiu|Xinyan|Yae Miko|Yanfei|Yaoyao|Yelan|Yoimiya|Yumemizuki Mizuki|Yun Jin|Zhongli|Zibai`.split('|').sort();
+export const names = `Aino|Albedo|Alhaitham|Aloy|Alyosha|Amber|Anemo Traveler|Arataki Itto|Arlecchino|Baizhu|Barbara|Beidou|Bennett|Candace|Charlotte|Chasca|Chevreuse|Chiori|Chongyun|Citlali|Clorinde|Collei|Columbina|Cryo Traveler|Cyno|Dahlia|Dehya|Dendro Traveler|Diluc|Diona|Dori|Durin|Electro Traveler|Emilie|Escoffier|Eula|Faruzan|Fischl|Flins|Freminet|Furina|Gaming|Ganyu|Geo Traveler|Gorou|Hu Tao|Hydro Traveler|Iansan|Ifa|Illuga|Ineffa|Jahoda|Jean|Kachina|Kaedehara Kazuha|Kaeya|Kamisato Ayaka|Kamisato Ayato|Kaveh|Keqing|Kinich|Kirara|Klee|Kujou Sara|Kuki Shinobu|Lan Yan|Lauma|Layla|Linnea|Lisa|Lohen|Lumine|Lynette|Lyney|Mavuika|Mika|Mitya|Mona|Mualani|Nahida|Navia|Nefer|Neuvillette|Nicole|Nilou|Ningguang|Noelle|Odette|Ororon|Prune|Pyro Traveler|Qiqi|Raiden Shogun|Razor|Rosaria|Sandrone|Sangonomiya Kokomi|Sayu|Sethos|Shenhe|Shikanoin Heizou|Sigewinne|Skirk|Sucrose|Tartaglia|Thoma|Tighnari|Valeriy|Varesa|Varka|Venti|Vesna|Vodyanitsa|Wanderer|Wriothesley|Xiangling|Xianyun|Xiao|Xilonen|Xingqiu|Xinyan|Yae Miko|Yanfei|Yaoyao|Yelan|Yoimiya|Yumemizuki Mizuki|Yun Jin|Zhongli|Zibai`.split('|').sort();
 
 export const elements = ['Anemo', 'Cryo', 'Dendro', 'Electro', 'Geo', 'Hydro', 'Pyro'] as const;
 export type Element = typeof elements[number];
@@ -137,6 +137,8 @@ const metadataEntries: [string, CharacterMetadata][] = [
   ['Hydro Traveler', { element: 'Hydro', rarity: 5, weapon: 'Sword' }],
   ['Pyro Traveler', { element: 'Pyro', rarity: 5, weapon: 'Sword' }],
   ['Cryo Traveler', { element: 'Cryo', rarity: 5, weapon: 'Sword' }],
+  ["Mitya", { element: 'Electro', rarity: 5, weapon: 'Catalyst' }],
+  ["Valeriy", { element: 'Electro', rarity: 4, weapon: 'Sword' }],
 ];
 
 const metadataByName = Object.fromEntries(metadataEntries);
